@@ -45,9 +45,12 @@ ssize_t rio_writen(int fd, void *usrbuf, size_t n){                /* rio_writen
 void rio_readinitb(rio_t *rp, int fd){
     rp->rio_fd = fd;
     rp->rio_cnt = 0;
-    rp->rio_bufptr = rp->rio_bufptr;
+    rp->rio_bufptr = rp->rio_buf;
 }
 
+// this function can be called many times , and everytime it will determine whether rio_buf has unread buf
+// if rio has, it will read the unread buff in rio
+// else it will read the rio_fd for more bytes
 static ssize_t rio_read(rio_t *rp, void *usrbuf, size_t n){
     int cnt;
 
@@ -64,7 +67,7 @@ static ssize_t rio_read(rio_t *rp, void *usrbuf, size_t n){
     }
     /* copy rio_buf to usrbuf */
     cnt = n;
-    if(rp->rio_cnt < 0)
+    if(rp->rio_cnt < n)
         cnt = rp->rio_cnt;
     memcpy(usrbuf, rp->rio_bufptr, cnt);
     rp->rio_bufptr += cnt;
@@ -72,7 +75,7 @@ static ssize_t rio_read(rio_t *rp, void *usrbuf, size_t n){
     return cnt;
 }
 
-ssize_t rio_readnb(rio_t *rp, void *usrbuf, size_t n){             /* */  
+ssize_t rio_readnb(rio_t *rp, void *usrbuf, size_t n){             /* call rio_read once more up to EOF */  
     size_t nleft = n;
     ssize_t nread;
     char *bufp = usrbuf;

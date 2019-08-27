@@ -34,8 +34,8 @@ int main(int argc, char **argv){
     while(fgets(buf, MAXLINE, stdin) != NULL){
         rio_writen(clientfd, buf, strlen(buf));
         printf("send ok\n");
-        int recv = rio_readlineb(&rio, buf, MAXLINE);
-        printf("receive chars num: %d\n", recv);
+        rio_readlineb(&rio, buf, MAXLINE);
+        // printf("receive chars num: %d\n", recv);
         fputs(buf, stdout);
         
     }
