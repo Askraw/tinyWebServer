@@ -12,7 +12,7 @@
 #include<unistd.h>
 #include<string.h>
 #include<netdb.h>
-#include"socketHelper.h"
+#include"../socketHelper.h"
 int main(int argc, char **argv){
     int listenfd;
     int connfd;

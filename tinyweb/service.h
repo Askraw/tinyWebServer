@@ -12,7 +12,7 @@
 #include<unistd.h>
 #include<string.h>
 #include<netdb.h>
-#include"socketHelper.h"
+#include"../socketHelper.h"
 
 void doit(int fd);
 void read_requesthdrs(rio_t *rp);
