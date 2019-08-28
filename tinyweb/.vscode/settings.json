@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "service.h": "c",
+        "stdio.h": "c"
+    }
+}
