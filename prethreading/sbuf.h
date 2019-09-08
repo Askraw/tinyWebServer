@@ -4,13 +4,13 @@
 #include<semaphore.h>
 
 typedef struct{
-    int *buf;
-    int n;
-    int front;
-    int rear;
-    sem_t mutex;
-    sem_t slots;
-    sem_t items;
+    int *buf;                // buffer array
+    int n;                   // maximum number of slots
+    int front;               // buf[(front+1)%n] is first item
+    int rear;                // buf[rear%n] is last item
+    sem_t mutex;             // protects accesses to buf
+    sem_t slots;             // counts availble slots
+    sem_t items;             // count availble items
 } sbuf_t;
 
 void sbuf_init(sbuf_t *sp, int n);

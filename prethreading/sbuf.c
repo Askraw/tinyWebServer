@@ -18,7 +18,7 @@ void sbuf_insert(sbuf_t *sp, int item){
     P(&sp->mutex);
     sp->buf[(++sp->rear)%(sp->n)] = item;
     V(&sp->mutex);
-    V(&sp->slots);
+    V(&sp->items);
 }
 
 int sbuf_remove(sbuf_t *sp){
